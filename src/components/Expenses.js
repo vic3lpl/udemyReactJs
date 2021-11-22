@@ -1,8 +1,9 @@
-import ExpenseItem from "./ExpenseItem";
+// import ExpenseItem from "./ExpenseItem";
 import "./Expenses.css";
 import Card from "./Card";
 import ExpensesFilter from "./ExpensesFilter";
 import { useState } from "react";
+import ExpensesList from "./ExpensesList";
 
 function Expenses(props) {
   const [selectedYear, setSelectedYear] = useState("2021");
@@ -11,8 +12,42 @@ function Expenses(props) {
   };
 
   const filteredExpenses = props.data.filter(item => {
-    return item.date.getFullYear().toString() == selectedYear;
+    return item.date.getFullYear().toString() === selectedYear;
   })
+
+  /*
+  const checkFilteredResult = () =>{
+    if(filteredExpenses.length === 0){
+      return <p>Found no expenses</p>
+    }else{
+      return filteredExpenses.map((item) => {
+        //if(item.date.getFullYear() == selectedYear){
+         return <ExpenseItem
+         key={item.id}
+         title={item.title}
+         amount={item.amount}
+         date={item.date}
+       />
+       //}
+       
+     })
+    }
+  }
+
+  let expensesCotent = <p>Expenses no found</p>
+  if(filteredExpenses.length > 0){
+    expensesCotent = filteredExpenses.map((item) => {
+      //if(item.date.getFullYear() == selectedYear){
+       return <ExpenseItem
+       key={item.id}
+       title={item.title}
+       amount={item.amount}
+       date={item.date}
+     />
+     //}
+     
+   })
+  }*/
 
   return (
     <div>
@@ -21,21 +56,9 @@ function Expenses(props) {
           selected={selectedYear}
           expensesFilterHandler={expensesFilterHandler}
         />
-        {
-
-
-          filteredExpenses.map((item) => {
-             //if(item.date.getFullYear() == selectedYear){
-              return <ExpenseItem
-              key={item.id}
-              title={item.title}
-              amount={item.amount}
-              date={item.date}
-            />
-            //}
-            
-          })
-        }
+        <ExpensesList items={filteredExpenses}/>
+        {/* {expensesCotent} */}
+        {/* {checkFilteredResult()} */}
 
         {/* <ExpenseItem
           title={props.data[0].title}
